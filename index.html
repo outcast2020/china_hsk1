@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartas do Hor&oacute;scopo Chin&ecirc;s</title>
+  <style>
+    :root {
+      --bg: #f6efe2;
+      --panel: rgba(255, 250, 240, 0.86);
+      --ink: #2a1f17;
+      --ink-soft: #6f5642;
+      --red: #a61b1b;
+      --red-deep: #7f1414;
+      --gold: #d4a63a;
+      --gold-soft: #efd79d;
+      --line: rgba(166, 27, 27, 0.1);
+      --shadow: 0 16px 36px rgba(60, 34, 14, 0.14);
+      --radius: 22px;
+      --focus: 0 0 0 3px rgba(212, 166, 58, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(212, 166, 58, 0.2), transparent 28%),
+        linear-gradient(180deg, #fbf4e8 0%, #f3ead8 100%);
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(1280px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(166, 27, 27, 0.98), rgba(125, 17, 17, 0.96));
+      color: #fff7ea;
+      border-radius: 30px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.14), transparent 18%),
+        radial-gradient(circle at 12% 88%, rgba(212, 166, 58, 0.26), transparent 20%);
+      pointer-events: none;
+    }
+
+    .hero-copy,
+    .hero-badge {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.76rem;
+      color: #ffe6b1;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.04;
+      letter-spacing: 0.01em;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      max-width: 760px;
+      line-height: 1.58;
+      font-size: 1rem;
+      color: rgba(255, 247, 234, 0.94);
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-tags li {
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 243, 222, 0.24);
+      background: rgba(255, 247, 234, 0.14);
+      font-size: 0.92rem;
+    }
+
+    .hero-badge {
+      min-width: 176px;
+      text-align: center;
+      padding: 18px 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 243, 222, 0.2);
+      background: rgba(255, 248, 237, 0.12);
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-number {
+      display: block;
+      font-size: clamp(2rem, 4vw, 2.7rem);
+      line-height: 1;
+      font-weight: 800;
+      color: #ffe7a8;
+    }
+
+    .badge-label {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: rgba(255, 247, 234, 0.88);
+    }
+
+    .control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 16px 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(60, 34, 14, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .status {
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .action-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      cursor: pointer;
+      color: #fff8ed;
+      background: linear-gradient(135deg, var(--red), var(--red-deep));
+      box-shadow: 0 10px 18px rgba(166, 27, 27, 0.18);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 22px rgba(166, 27, 27, 0.22);
+    }
+
+    .action-btn.secondary {
+      color: var(--red-deep);
+      background: rgba(166, 27, 27, 0.08);
+      box-shadow: none;
+      border: 1px solid rgba(166, 27, 27, 0.12);
+    }
+
+    .action-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(180px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      height: 312px;
+      perspective: 1200px;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.75s ease;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover .card-inner {
+      transform: translateY(-4px);
+    }
+
+    .card.is-flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card.is-flipped:hover .card-inner {
+      transform: rotateY(180deg) translateY(-4px);
+    }
+
+    .card.is-featured .face {
+      border-color: rgba(212, 166, 58, 0.58);
+      box-shadow:
+        0 16px 34px rgba(60, 34, 14, 0.16),
+        0 0 0 4px rgba(212, 166, 58, 0.16);
+    }
+
+    .card:focus-visible .face {
+      outline: none;
+      box-shadow: var(--focus), var(--shadow);
+    }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 2px solid rgba(166, 27, 27, 0.08);
+      transition: box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .front {
+      background: linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(247, 236, 214, 0.98));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .seal {
+      align-self: stretch;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--red);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .animal-figure {
+      width: 124px;
+      height: 124px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff7e0, var(--gold-soft));
+      border: 3px solid rgba(166, 27, 27, 0.12);
+      box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.35);
+      overflow: hidden;
+    }
+
+    .animal-figure svg {
+      width: 88px;
+      height: 88px;
+      display: block;
+    }
+
+    .front h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .hanzi {
+      color: var(--red);
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .pinyin {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .hint {
+      font-size: 0.84rem;
+      color: #745d49;
+      background: rgba(212, 166, 58, 0.16);
+      border-radius: 999px;
+      padding: 7px 12px;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background: linear-gradient(180deg, #fffaf1 0%, #f7ead0 100%);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .back-header {
+      border-bottom: 2px solid rgba(166, 27, 27, 0.14);
+      padding-bottom: 8px;
+    }
+
+    .back h3 {
+      margin: 0 0 4px;
+      font-size: 1.12rem;
+      color: var(--red);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background: rgba(166, 27, 27, 0.08);
+      color: var(--red-deep);
+      border: 1px solid rgba(166, 27, 27, 0.12);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .back p {
+      margin: 0;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .center-tile {
+      height: 312px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 22%),
+        linear-gradient(145deg, #a61b1b, #7d1111);
+      color: #fff7ea;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 2px solid rgba(255, 239, 209, 0.18);
+      position: relative;
+      overflow: hidden;
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .center-tile::before,
+    .center-tile::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 238, 205, 0.15);
+    }
+
+    .center-tile::before {
+      top: -70px;
+      right: -50px;
+    }
+
+    .center-tile::after {
+      bottom: -80px;
+      left: -60px;
+    }
+
+    .center-small,
+    .center-country,
+    .center-title,
+    .center-subtitle {
+      position: relative;
+      z-index: 1;
+    }
+
+    .center-small {
+      font-size: 0.84rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .center-country {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1;
+      margin: 6px 0 10px;
+      color: #ffe7a8;
+    }
+
+    .center-title {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .center-subtitle {
+      margin-top: 10px;
+      font-size: 1rem;
+      line-height: 1.45;
+      max-width: 220px;
+    }
+
+    @media (max-width: 1120px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-badge {
+        min-width: 0;
+        justify-self: start;
+      }
+
+      .control-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .board {
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+      }
+
+      .center-tile {
+        grid-column: auto;
+        grid-row: auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(100% - 20px, 1280px);
+        padding-top: 18px;
+      }
+
+      .hero {
+        padding: 22px 18px;
+      }
+
+      .control-bar {
+        padding: 14px;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .action-btn {
+        flex: 1 1 180px;
+        text-align: center;
+      }
+
+      .board {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+      }
+
+      .card,
+      .center-tile {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .board {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Mandarim &bull; Zod&iacute;aco Chin&ecirc;s</p>
+        <h1>Cartas Interativas do Hor&oacute;scopo Chin&ecirc;s</h1>
+        <p>Toque nas cartas para revelar o nome em mandarim, o pinyin e uma curiosidade cultural de cada animal.</p>
+        <ul class="hero-tags">
+          <li>12 animais do ciclo</li>
+          <li>&#x6C49;&#x5B57; + pinyin</li>
+          <li>Pronto para apresenta&ccedil;&atilde;o</li>
+        </ul>
+      </div>
+
+      <div class="hero-badge" aria-live="polite">
+        <span class="badge-number" id="revealedCount">0/12</span>
+        <span class="badge-label">cartas reveladas</span>
+      </div>
+    </section>
+
+    <section class="control-bar" aria-label="Controles do tabuleiro">
+      <div class="status" id="statusMessage">Tabuleiro pronto para apresenta&ccedil;&atilde;o.</div>
+      <div class="actions">
+        <button class="action-btn" id="surpriseBtn" type="button">Carta surpresa</button>
+        <button class="action-btn secondary" id="shuffleBtn" type="button">Embaralhar</button>
+        <button class="action-btn secondary" id="toggleAllBtn" type="button">Virar todas</button>
+        <button class="action-btn secondary" id="resetBtn" type="button">Reiniciar</button>
+      </div>
+    </section>
+
+    <section class="board" id="board"></section>
+  </main>
+
+  <script>
+    const zodiacAnimals = [
+      {
+        name: "Rato",
+        hanzi: "\u9f20",
+        pinyin: "sh\u01d4",
+        traits: ["r\u00e1pido", "esperto", "adapt\u00e1vel"],
+        curiosity: "Na tradi\u00e7\u00e3o zodiacal, o rato abre o ciclo de 12 animais e simboliza intelig\u00eancia, agilidade e senso de oportunidade.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="28" r="12" fill="#c8b8a6"/><circle cx="60" cy="30" r="22" fill="#d9cab7"/><circle cx="49" cy="21" r="8" fill="#c8b8a6"/><circle cx="24" cy="18" r="7" fill="#c8b8a6"/><circle cx="68" cy="31" r="3" fill="#2f241b"/><circle cx="77" cy="39" r="2.8" fill="#a66"/><path d="M78 40 C90 35, 95 46, 87 51" fill="none" stroke="#b67b8c" stroke-width="3" stroke-linecap="round"/><circle cx="31" cy="28" r="1.7" fill="#2f241b"/></svg>`
+      },
+      {
+        name: "Boi",
+        hanzi: "\u725b",
+        pinyin: "ni\u00fa",
+        traits: ["persistente", "forte", "confi\u00e1vel"],
+        curiosity: "O boi est\u00e1 ligado \u00e0 disciplina, ao trabalho constante e \u00e0 estabilidade, sendo s\u00edmbolo de paci\u00eancia e firmeza.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M15 32 C26 10, 40 10, 45 27" fill="none" stroke="#8a5a3a" stroke-width="7" stroke-linecap="round"/><path d="M85 32 C74 10, 60 10, 55 27" fill="none" stroke="#8a5a3a" stroke-width="7" stroke-linecap="round"/><rect x="22" y="28" width="56" height="42" rx="18" fill="#a56e45"/><circle cx="40" cy="48" r="4" fill="#2f241b"/><circle cx="60" cy="48" r="4" fill="#2f241b"/><rect x="40" y="56" width="20" height="12" rx="6" fill="#d9cab7"/></svg>`
+      },
+      {
+        name: "Tigre",
+        hanzi: "\u864e",
+        pinyin: "h\u01d4",
+        traits: ["corajoso", "intenso", "carism\u00e1tico"],
+        curiosity: "O tigre simboliza bravura, energia e magnetismo pessoal. Em muitas leituras, tamb\u00e9m representa prote\u00e7\u00e3o.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="28" fill="#f0a545"/><circle cx="33" cy="28" r="10" fill="#f0a545"/><circle cx="67" cy="28" r="10" fill="#f0a545"/><circle cx="33" cy="28" r="5" fill="#2f241b" opacity="0.25"/><circle cx="67" cy="28" r="5" fill="#2f241b" opacity="0.25"/><path d="M36 30 L42 46 M50 22 L50 43 M64 30 L58 46" stroke="#2f241b" stroke-width="5" stroke-linecap="round"/><circle cx="40" cy="52" r="3.5" fill="#2f241b"/><circle cx="60" cy="52" r="3.5" fill="#2f241b"/><path d="M46 62 Q50 67 54 62" fill="none" stroke="#2f241b" stroke-width="4" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Coelho",
+        hanzi: "\u5154",
+        pinyin: "t\u00f9",
+        traits: ["gentil", "elegante", "sens\u00edvel"],
+        curiosity: "O coelho costuma representar delicadeza, diplomacia e refinamento. Em v\u00e1rias tradi\u00e7\u00f5es asi\u00e1ticas, tamb\u00e9m \u00e9 ligado \u00e0 lua.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="37" cy="23" rx="8" ry="18" fill="#efe8de"/><ellipse cx="63" cy="23" rx="8" ry="18" fill="#efe8de"/><circle cx="50" cy="52" r="26" fill="#f6efe7"/><circle cx="40" cy="48" r="3.2" fill="#2f241b"/><circle cx="60" cy="48" r="3.2" fill="#2f241b"/><circle cx="50" cy="58" r="3" fill="#d18b8b"/><path d="M46 63 Q50 66 54 63" fill="none" stroke="#2f241b" stroke-width="3" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Drag\u00e3o",
+        hanzi: "\u9f99",
+        pinyin: "l\u00f3ng",
+        traits: ["poderoso", "vision\u00e1rio", "vibrante"],
+        curiosity: "O drag\u00e3o \u00e9 um dos s\u00edmbolos mais celebrados na cultura chinesa, associado a for\u00e7a, prest\u00edgio, vitalidade e boa fortuna.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M27 60 C27 34, 66 28, 72 44 C76 55, 65 67, 51 67 C43 67, 39 62, 39 58 C39 52, 46 49, 51 52" fill="none" stroke="#4a9f65" stroke-width="10" stroke-linecap="round"/><circle cx="66" cy="35" r="10" fill="#4a9f65"/><circle cx="69" cy="33" r="2.6" fill="#fff"/><circle cx="70" cy="33" r="1.4" fill="#2f241b"/><path d="M74 30 L82 24 M73 36 L84 36" stroke="#d4a63a" stroke-width="3" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Serpente",
+        hanzi: "\u86c7",
+        pinyin: "sh\u00e9",
+        traits: ["intuitiva", "s\u00e1bia", "misteriosa"],
+        curiosity: "A serpente \u00e9 frequentemente vista como s\u00edmbolo de sabedoria, observa\u00e7\u00e3o estrat\u00e9gica e profundidade interior.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M60 20 C38 20, 32 34, 45 40 C62 48, 66 54, 55 63 C46 70, 35 67, 31 60" fill="none" stroke="#5c8f57" stroke-width="11" stroke-linecap="round"/><circle cx="66" cy="20" r="10" fill="#5c8f57"/><circle cx="69" cy="18" r="2" fill="#2f241b"/><path d="M73 22 Q80 24 85 20" fill="none" stroke="#d17a7a" stroke-width="2.5" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Cavalo",
+        hanzi: "\u9a6c",
+        pinyin: "m\u01ce",
+        traits: ["livre", "din\u00e2mico", "entusiasmado"],
+        curiosity: "O cavalo remete a movimento, independ\u00eancia e energia expansiva. Costuma ser associado \u00e0 a\u00e7\u00e3o e ao esp\u00edrito aventureiro.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M35 30 L60 25 L72 38 L68 70 L40 70 L33 52 Z" fill="#9a6a48"/><path d="M35 31 C28 28, 22 24, 20 18" fill="none" stroke="#5d3e2b" stroke-width="5" stroke-linecap="round"/><circle cx="57" cy="40" r="3" fill="#2f241b"/><path d="M64 54 Q59 59 53 54" fill="none" stroke="#2f241b" stroke-width="3" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Cabra",
+        hanzi: "\u7f8a",
+        pinyin: "y\u00e1ng",
+        traits: ["criativa", "tranquila", "emp\u00e1tica"],
+        curiosity: "A cabra \u00e9 ligada \u00e0 sensibilidade art\u00edstica, \u00e0 harmonia e \u00e0 capacidade de criar ambientes acolhedores.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M26 33 C18 20, 25 13, 35 18" fill="none" stroke="#a98155" stroke-width="5" stroke-linecap="round"/><path d="M74 33 C82 20, 75 13, 65 18" fill="none" stroke="#a98155" stroke-width="5" stroke-linecap="round"/><ellipse cx="50" cy="52" rx="25" ry="22" fill="#efe2cf"/><circle cx="41" cy="48" r="3" fill="#2f241b"/><circle cx="59" cy="48" r="3" fill="#2f241b"/><path d="M45 59 Q50 63 55 59" fill="none" stroke="#2f241b" stroke-width="3" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Macaco",
+        hanzi: "\u7334",
+        pinyin: "h\u00f3u",
+        traits: ["inventivo", "brincalh\u00e3o", "inteligente"],
+        curiosity: "O macaco costuma simbolizar criatividade, humor e rapidez mental, sendo um dos signos mais associados \u00e0 improvisa\u00e7\u00e3o.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="26" fill="#8b5f3d"/><circle cx="28" cy="42" r="10" fill="#8b5f3d"/><circle cx="72" cy="42" r="10" fill="#8b5f3d"/><ellipse cx="50" cy="54" rx="18" ry="14" fill="#d7b18a"/><circle cx="41" cy="49" r="3" fill="#2f241b"/><circle cx="59" cy="49" r="3" fill="#2f241b"/><path d="M44 61 Q50 66 56 61" fill="none" stroke="#2f241b" stroke-width="3" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "Galo",
+        hanzi: "\u9e21",
+        pinyin: "j\u012b",
+        traits: ["observador", "organizado", "expressivo"],
+        curiosity: "O galo \u00e9 visto como atento, preciso e eloquente. Tamb\u00e9m aparece como s\u00edmbolo de pontualidade e presen\u00e7a marcante.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M45 27 C48 15, 58 16, 58 27 C67 18, 74 23, 69 33" fill="#d04a3b"/><circle cx="50" cy="53" r="24" fill="#f1d36b"/><circle cx="44" cy="49" r="3" fill="#2f241b"/><path d="M63 55 L77 50 L63 45 Z" fill="#d98f30"/><path d="M46 62 Q50 66 54 62" fill="none" stroke="#2f241b" stroke-width="3" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: "C\u00e3o",
+        hanzi: "\u72d7",
+        pinyin: "g\u01d2u",
+        traits: ["leal", "protetor", "sincero"],
+        curiosity: "O c\u00e3o representa fidelidade, senso de justi\u00e7a e compromisso com quem ama, sendo associado \u00e0 confian\u00e7a.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="25" fill="#b4835d"/><path d="M30 35 C20 28, 19 47, 28 53" fill="#8d5f3f"/><path d="M70 35 C80 28, 81 47, 72 53" fill="#8d5f3f"/><circle cx="42" cy="49" r="3" fill="#2f241b"/><circle cx="58" cy="49" r="3" fill="#2f241b"/><circle cx="50" cy="58" r="4" fill="#2f241b"/></svg>`
+      },
+      {
+        name: "Porco",
+        hanzi: "\u732a",
+        pinyin: "zh\u016b",
+        traits: ["generoso", "afetuoso", "sereno"],
+        curiosity: "O porco est\u00e1 ligado \u00e0 abund\u00e2ncia, \u00e0 gentileza e ao prazer de viver com simplicidade, conforto e afeto.",
+        art: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="28" fill="#f0b6be"/><circle cx="36" cy="31" r="8" fill="#f0b6be"/><circle cx="64" cy="31" r="8" fill="#f0b6be"/><ellipse cx="50" cy="59" rx="13" ry="9" fill="#e89aa7"/><circle cx="45" cy="59" r="2" fill="#9e5d67"/><circle cx="55" cy="59" r="2" fill="#9e5d67"/><circle cx="41" cy="48" r="3" fill="#2f241b"/><circle cx="59" cy="48" r="3" fill="#2f241b"/></svg>`
+      }
+    ];
+
+    const board = document.getElementById("board");
+    const revealedCount = document.getElementById("revealedCount");
+    const statusMessage = document.getElementById("statusMessage");
+    const surpriseBtn = document.getElementById("surpriseBtn");
+    const shuffleBtn = document.getElementById("shuffleBtn");
+    const toggleAllBtn = document.getElementById("toggleAllBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const state = {
+      order: [...zodiacAnimals],
+      flipped: new Set(),
+      showAll: false,
+      featuredName: null
+    };
+
+    function shuffleAnimals(list) {
+      const items = [...list];
+
+      for (let index = items.length - 1; index > 0; index -= 1) {
+        const nextIndex = Math.floor(Math.random() * (index + 1));
+        [items[index], items[nextIndex]] = [items[nextIndex], items[index]];
+      }
+
+      return items;
+    }
+
+    function isCardFlipped(name) {
+      return state.showAll || state.flipped.has(name);
+    }
+
+    function getRevealedTotal() {
+      return state.showAll ? state.order.length : state.flipped.size;
+    }
+
+    function getStatusText() {
+      if (state.featuredName) {
+        return `Carta surpresa: ${state.featuredName}.`;
+      }
+
+      if (state.showAll) {
+        return "Todas as cartas est\u00e3o abertas.";
+      }
+
+      const total = getRevealedTotal();
+
+      if (total === 0) {
+        return "Tabuleiro pronto para apresenta\u00e7\u00e3o.";
+      }
+
+      if (total === state.order.length) {
+        return "Todas as cartas foram reveladas.";
+      }
+
+      return `${total} de ${state.order.length} cartas reveladas.`;
+    }
+
+    function updateMeta() {
+      revealedCount.textContent = `${getRevealedTotal()}/${state.order.length}`;
+      statusMessage.textContent = getStatusText();
+      toggleAllBtn.textContent = state.showAll ? "Fechar todas" : "Virar todas";
+    }
+
+    function toggleCard(name) {
+      state.featuredName = null;
+
+      if (state.showAll) {
+        state.showAll = false;
+        state.flipped = new Set(state.order.map((animal) => animal.name));
+      }
+
+      if (state.flipped.has(name)) {
+        state.flipped.delete(name);
+      } else {
+        state.flipped.add(name);
+      }
+
+      renderBoard(name);
+    }
+
+    function createCard(animal) {
+      const card = document.createElement("article");
+      const flipped = isCardFlipped(animal.name);
+
+      card.className = `card${flipped ? " is-flipped" : ""}${state.featuredName === animal.name ? " is-featured" : ""}`;
+      card.tabIndex = 0;
+      card.dataset.name = animal.name;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `Carta do signo ${animal.name}`);
+      card.setAttribute("aria-pressed", String(flipped));
+
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="face front">
+            <div class="seal"><span>Mandarim</span><span>Zod&iacute;aco</span></div>
+            <div class="animal-figure">${animal.art}</div>
+            <div>
+              <h2>${animal.name}</h2>
+              <div class="hanzi">${animal.hanzi}</div>
+              <div class="pinyin">${animal.pinyin}</div>
+            </div>
+            <div class="hint">${flipped ? "Toque para fechar" : "Toque para revelar"}</div>
+          </div>
+          <div class="face back">
+            <div class="back-header">
+              <h3>${animal.name} &middot; ${animal.hanzi}</h3>
+              <div class="pinyin">${animal.pinyin}</div>
+            </div>
+            <div class="tags">
+              ${animal.traits.map((trait) => `<span class="tag">${trait}</span>`).join("")}
+            </div>
+            <p><strong>Curiosidade:</strong> ${animal.curiosity}</p>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        toggleCard(animal.name);
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleCard(animal.name);
+        }
+      });
+
+      return card;
+    }
+
+    function createCenterTile() {
+      const tile = document.createElement("article");
+      tile.className = "center-tile";
+      tile.innerHTML = `
+        <div class="center-small">Centro cultural</div>
+        <div class="center-country">&#20013;&#22269;</div>
+        <h2 class="center-title">&#21313;&#20108;&#29983;&#32918;</h2>
+        <div class="center-subtitle">Hor&oacute;scopo chin&ecirc;s<br />Sh&iacute;'&egrave;r sh&#275;ngxi&agrave;o</div>
+      `;
+      return tile;
+    }
+
+    function renderBoard(focusName) {
+      board.replaceChildren();
+
+      const beforeCenter = state.order.slice(0, 7);
+      const afterCenter = state.order.slice(7);
+
+      beforeCenter.forEach((animal) => board.appendChild(createCard(animal)));
+      board.appendChild(createCenterTile());
+      afterCenter.forEach((animal) => board.appendChild(createCard(animal)));
+
+      updateMeta();
+
+      if (focusName) {
+        const focusCard = Array.from(board.querySelectorAll(".card")).find((card) => card.dataset.name === focusName);
+
+        if (focusCard) {
+          focusCard.focus();
+
+          if (state.featuredName === focusName) {
+            focusCard.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+      }
+    }
+
+    surpriseBtn.addEventListener("click", () => {
+      const hiddenCards = state.order.filter((animal) => !isCardFlipped(animal.name));
+      const source = hiddenCards.length > 0 ? hiddenCards : state.order;
+      const selected = source[Math.floor(Math.random() * source.length)];
+
+      state.featuredName = selected.name;
+
+      if (!state.showAll) {
+        state.flipped.add(selected.name);
+      }
+
+      renderBoard(selected.name);
+    });
+
+    shuffleBtn.addEventListener("click", () => {
+      state.featuredName = null;
+      state.order = shuffleAnimals(state.order);
+      renderBoard();
+    });
+
+    toggleAllBtn.addEventListener("click", () => {
+      state.featuredName = null;
+      state.showAll = !state.showAll;
+      renderBoard();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      state.order = [...zodiacAnimals];
+      state.flipped.clear();
+      state.showAll = false;
+      state.featuredName = null;
+      renderBoard();
+    });
+
+    renderBoard();
+  </script>
+</body>
+</html>
