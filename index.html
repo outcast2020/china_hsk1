@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Meu Zodíaco Chinês</title>
+
+  <meta
+    name="description"
+    content="App educativo simples para descobrir seu animal do zodíaco chinês a partir da data de nascimento, com Hanzi, pinyin e áudio em mandarim."
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <!-- Tela inicial -->
+    <section id="landing" class="screen active">
+      <div class="badge">中国生肖 · Zhōngguó Shēngxiào</div>
+
+      <h1>Meu Zodíaco Chinês</h1>
+
+      <p class="subtitle">
+        Descubra seu animal do zodíaco chinês e aprenda uma palavra em mandarim.
+      </p>
+
+      <div class="form-card">
+        <label for="nome">Seu nome</label>
+        <input
+          id="nome"
+          type="text"
+          placeholder="Digite seu nome"
+          autocomplete="name"
+        />
+
+        <label for="nascimento">Data de nascimento</label>
+        <input
+          id="nascimento"
+          type="date"
+        />
+
+        <button id="btnDescobrir" type="button">
+          Descobrir meu animal
+        </button>
+      </div>
+
+      <p class="note">
+        Uma experiência educativa inspirada em cultura chinesa, Hanzi, pinyin e HSK1.
+      </p>
+    </section>
+
+    <!-- Tela de resultado -->
+    <section id="resultado" class="screen">
+      <button id="btnVoltar" class="back-button" type="button">
+        ← Voltar
+      </button>
+
+      <div class="result-card">
+        <div id="emoji" class="emoji" aria-hidden="true"></div>
+
+        <div id="hanzi" class="hanzi"></div>
+
+        <h2 id="tituloResultado"></h2>
+
+        <p id="pinyin" class="pinyin"></p>
+
+        <button id="btnSom" class="sound-button" type="button">
+          🔊 Ouvir em mandarim
+        </button>
+
+        <div class="info-box">
+          <p>
+            <strong>Características:</strong>
+            <span id="caracteristicas"></span>
+          </p>
+
+          <p>
+            <strong>Frase:</strong>
+            <span id="frase"></span>
+          </p>
+
+          <p>
+            <strong>Pinyin:</strong>
+            <span id="frasePinyin"></span>
+          </p>
+
+          <p>
+            <strong>Tradução:</strong>
+            <span id="traducao"></span>
+          </p>
+        </div>
+
+        <button id="btnNovaPesquisa" type="button">
+          Nova pesquisa
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
