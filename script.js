@@ -262,9 +262,21 @@ let animalAtual = null;
 
 const landing = document.getElementById("landing");
 const resultado = document.getElementById("resultado");
+const camposPrivados = ["nome", "nascimento"];
+const camposResultado = [
+  "emoji",
+  "hanzi",
+  "tituloResultado",
+  "pinyin",
+  "caracteristicas",
+  "frase",
+  "frasePinyin",
+  "traducao"
+];
+const appStoragePrefix = "china-hsk1-zodiac";
 
 document.getElementById("btnDescobrir").addEventListener("click", descobrirAnimal);
-document.getElementById("btnVoltar").addEventListener("click", voltarInicio);
+document.getElementById("btnVoltar").addEventListener("click", novaPesquisa);
 document.getElementById("btnNovaPesquisa").addEventListener("click", novaPesquisa);
 document.getElementById("btnSom").addEventListener("click", ouvirMandarim);
 
@@ -348,14 +360,44 @@ function ouvirMandarim() {
   window.speechSynthesis.speak(fala);
 }
 
+function limparArmazenamentoDaPesquisa(storageName) {
+  try {
+    const storage = window[storageName];
+
+    Object.keys(storage)
+      .filter((key) => key.startsWith(appStoragePrefix))
+      .forEach((key) => storage.removeItem(key));
+  } catch (error) {
+    // O app continua apagando os dados em memoria mesmo se o navegador bloquear storage.
+  }
+}
+
+function limparDadosDaPesquisa() {
+  camposPrivados.forEach((id) => {
+    document.getElementById(id).value = "";
+  });
+
+  camposResultado.forEach((id) => {
+    document.getElementById(id).textContent = "";
+  });
+
+  animalAtual = null;
+
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
+
+  limparArmazenamentoDaPesquisa("localStorage");
+  limparArmazenamentoDaPesquisa("sessionStorage");
+}
+
 function voltarInicio() {
   resultado.classList.remove("active");
   landing.classList.add("active");
 }
 
 function novaPesquisa() {
-  document.getElementById("nome").value = "";
-  document.getElementById("nascimento").value = "";
-  animalAtual = null;
+  limparDadosDaPesquisa();
   voltarInicio();
+  document.getElementById("nome").focus();
 }
